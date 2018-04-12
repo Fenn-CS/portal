@@ -67,7 +67,7 @@ class Community(models.Model):
         super(Community, self).__init__(*args, **kwargs)
         self.__original_name = self.name
         if self.admin_id is not None:
-            self.__original_admin = self.admin        
+            self.__original_admin = self.admin
 
     @property
     def original_name(self):
@@ -209,7 +209,6 @@ class RequestCommunity(models.Model):
     date_created = models.DateTimeField(
         auto_now_add=True, verbose_name="Date created")
 
-
     def __str__(self):
         return self.name
 
@@ -230,7 +229,7 @@ class RequestCommunity(models.Model):
         return [(field.verbose_name, getattr(self, field.name)) for field in
                 RequestCommunity._meta.fields]
 
-                          
+
 @receiver(pre_save, sender=RequestCommunity)
 def set_slug_request_community(sender, instance, *args, **kwargs):
     """Automatically generate slug from proposed community name"""
