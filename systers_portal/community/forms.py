@@ -14,7 +14,7 @@ class AddCommunityForm(ModelFormWithHelper):
     """ Form to create a new Community by admin. """
     class Meta:
         model = Community
-        fields = ('name', 'slug', 'order', 'email', 'mailing_list',
+        fields = ('name', 'order', 'email', 'mailing_list',
                   'parent_community', 'website', 'facebook', 'googleplus',
                   'twitter')
         helper_class = SubmitCancelFormHelper
@@ -52,7 +52,7 @@ class RequestCommunityForm(ModelFormWithHelper):
 
     class Meta:
         model = RequestCommunity
-        fields = ('is_member', 'email_id', 'email', 'name', 'slug', 'order',
+        fields = ('is_member', 'email_id', 'email', 'name', 'order',
                   'type_community', 'other_community_type', 'parent_community',
                   'community_channel', 'mailing_list', 'website', 'facebook',
                   'googleplus', 'twitter', 'social_presence', 'other_account',
@@ -96,7 +96,7 @@ class EditCommunityRequestForm(ModelFormWithHelper):
 
     class Meta:
         model = RequestCommunity
-        fields = ('is_member', 'email_id', 'email', 'name', 'slug', 'order',
+        fields = ('is_member', 'email_id', 'email', 'name', 'order',
                   'type_community', 'other_community_type', 'parent_community',
                   'community_channel', 'mailing_list', 'website', 'facebook',
                   'googleplus', 'twitter', 'social_presence', 'other_account',
@@ -145,7 +145,7 @@ class EditCommunityForm(ModelFormWithHelper):
     """Form to edit Community profile"""
     class Meta:
         model = Community
-        fields = ('name', 'slug', 'order', 'email', 'mailing_list',
+        fields = ('name', 'order', 'email', 'mailing_list',
                   'parent_community', 'website', 'facebook', 'googleplus',
                   'twitter')
         helper_class = SubmitCancelFormHelper
@@ -162,7 +162,7 @@ class AddCommunityPageForm(ModelFormWithHelper):
     """
     class Meta:
         model = CommunityPage
-        fields = ('title', 'slug', 'order', 'content')
+        fields = ('title', 'order', 'content')
         helper_class = SubmitCancelFormHelper
         helper_cancel_href = "{% url 'view_community_landing' " \
                              "community.slug %}"
@@ -186,7 +186,7 @@ class EditCommunityPageForm(ModelFormWithHelper):
     """Form to edit a CommunityPage."""
     class Meta:
         model = CommunityPage
-        fields = ('slug', 'title', 'order', 'content')
+        fields = ('title', 'order', 'content')
         helper_class = SubmitCancelFormHelper
         helper_cancel_href = "{% url 'view_community_page' community.slug " \
                              "object.slug %}"

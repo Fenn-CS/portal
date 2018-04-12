@@ -1,5 +1,8 @@
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.db import models
 
 from common.models import Post
@@ -13,7 +16,7 @@ from users.models import SystersUser
 class Community(models.Model):
     """Model to represent Systers community or subcommunity"""
     name = models.CharField(max_length=255, verbose_name="Name")
-    slug = models.SlugField(max_length=150, unique=True, verbose_name="Slug")
+    slug = models.SlugField(max_length=150, unique=True, verbose_name="Slug", editable="False")
     order = models.IntegerField(unique=True, verbose_name="Order")
     email = models.EmailField(max_length=255, blank=True, verbose_name="Email")
     mailing_list = models.EmailField(max_length=255, blank=True,
@@ -64,7 +67,7 @@ class Community(models.Model):
         super(Community, self).__init__(*args, **kwargs)
         self.__original_name = self.name
         if self.admin_id is not None:
-            self.__original_admin = self.admin
+            self.__original_admin = self.admin        
 
     @property
     def original_name(self):
@@ -134,11 +137,17 @@ class Community(models.Model):
         return OK
 
 
+@receiver(pre_save, sender=Community)
+def set_slug_community(sender, instance, *args, **kwargs):
+    """Automatically generate slug from community name"""
+    instance.slug = slugify(instance.name)
+
+
 class RequestCommunity(models.Model):
     """Model to represent new community requests"""
     name = models.CharField(
         max_length=255, verbose_name="Proposed Community Name")
-    slug = models.SlugField(max_length=150, unique=True, verbose_name="Slug")
+    slug = models.SlugField(max_length=150, unique=True, verbose_name="Slug", editable="False")
     order = models.PositiveIntegerField(
         null=True, blank=True, verbose_name="Order")
     email = models.EmailField(max_length=255, blank=True,
@@ -200,6 +209,7 @@ class RequestCommunity(models.Model):
     date_created = models.DateTimeField(
         auto_now_add=True, verbose_name="Date created")
 
+
     def __str__(self):
         return self.name
 
@@ -220,6 +230,12 @@ class RequestCommunity(models.Model):
         return [(field.verbose_name, getattr(self, field.name)) for field in
                 RequestCommunity._meta.fields]
 
+                          
+@receiver(pre_save, sender=RequestCommunity)
+def set_slug_request_community(sender, instance, *args, **kwargs):
+    """Automatically generate slug from proposed community name"""
+    instance.slug = slugify(instance.name)
+
 
 class CommunityPage(Post):
     """Model to represent an arbitrary community page"""
@@ -231,3 +247,9 @@ class CommunityPage(Post):
 
     def __str__(self):
         return "Page {0} of {1}".format(self.title, self.community)
+
+
+@receiver(pre_save, sender=CommunityPage)
+def set_slug_community_page(sender, instance, *args, **kwargs):
+    """Automatically generate slug from page title"""
+    instance.slug = slugify(instance.title)
