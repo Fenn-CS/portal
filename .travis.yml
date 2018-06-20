@@ -22,19 +22,6 @@ script:
   - coverage run systers_portal/manage.py test --settings=systers_portal.settings.testing
   - flake8 systers_portal
 notifications:
-  irc:
-    channels: "irc.freenode.org#systers-dev"
-    template:
-      - "%{repository}@%{branch}: %{message} (%{build_url})"
-    on_success: change
-    on_failure: change
-    use_notice: true
-  email: false
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/c403378d624b2391961e
-    on_success: change
-    on_failure: always
-    on_start: false
+  slack: '<account>:<token>#portal'
 after_success:
   coveralls --rcfile=.coveragerc
