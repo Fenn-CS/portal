@@ -1,27 +1,20 @@
 #!/bin/bash
 # Export secret key
-export SECRET_KEY='foobarbaz'
+# export SECRET_KEY='foobarbaz'
 
-# Create/Activate virtualenv
+#Create/Activate virtualenv
 
-virtualenv venv
+# virtualenv venv
 
-source venv/bin/activate
+# source venv/bin/activate
 
-# Install Requirements
+#Install Requirements
 
-pip install -r requirements.txt
+# pip install -r requirements.txt
 
-# Make Migrations
-python manage.py makemigrations
+#Run tests, $1, $2, $3 ... allow for command line argurments
 
-# Migrate
-
-python manage.py migrate
-
-# Run tests, $1, $2, $3 ... allow for command line argurments
-
-py.test $1 $2 $3 $4 $5
+python systers_portal/manage.py test --settings=systers_portal.settings.testing $1 $2 $3 $4 $5
 
 
 

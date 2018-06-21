@@ -22,7 +22,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 ROOT_URLCONF = 'systers_portal.systers_portal.urls'
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+TEST_RUNNER = 'systers_portal.settings.runner.PytestTestRunner'
 
 NOSE_ARGS = [
     '--nocapture',
