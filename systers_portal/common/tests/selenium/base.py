@@ -28,7 +28,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.browser = browsers['firefox']()
-        cls.browser.implicitly_wait(0)
+        cls.browser.implicitly_wait(30)
 
     @classmethod
     def tearDownClass(cls):
