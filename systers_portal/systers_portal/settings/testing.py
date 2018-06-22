@@ -20,7 +20,7 @@ DATABASES = {
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-ROOT_URLCONF = 'systers_portal.systers_portal.urls'
+ROOT_URLCONF = 'systers_portal.urls'
 
 TEST_RUNNER = 'systers_portal.settings.runner.PytestTestRunner'
 
