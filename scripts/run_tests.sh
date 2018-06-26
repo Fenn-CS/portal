@@ -1,18 +1,18 @@
 #!/bin/bash
+# Create/Activate virtualenv
+
+virtualenv venv
+source venv/bin/activate
+
 # Export secret key
-# export SECRET_KEY='foobarbaz'
 
-#Create/Activate virtualenv
+export SECRET_KEY='foobarbaz'
 
-# virtualenv venv
+# Install Requirements
 
-# source venv/bin/activate
+pip install -r requirements.txt
 
-#Install Requirements
-
-# pip install -r requirements.txt
-
-#Run tests, $1, $2, $3 ... allow for command line argurments
+# Run tests, $1, $2, $3 ... allow for command line argurments
 
 python systers_portal/manage.py test --settings=systers_portal.settings.testing $1 $2 $3 $4 $5
 

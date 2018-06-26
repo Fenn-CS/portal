@@ -40,3 +40,40 @@ Note : Be sure to export only the directory(ies) containing the executables with
 Continues Integration with Jenkins
 ==================================
 
+Jenkins is used to facilate our continues integration operations. Here we observe how to setup jenkins (on debian a distro like Ubuntu) for our project.
+
+###Requirements :
+
+1. Java (JDK) 8 is required
+
+Install Jenkins by running :
+```
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+```
+
+To ensure jenkins is installed try starting it :
+
+`sudo systemctl start jenkins`
+
+Since systemctl doesn't display output, we'll use its status command to verify that it started successfully:
+
+`sudo systemctl status jenkins`
+
+If everything went well, the beginning of the output should show that the service is active and configured to start at boot:
+
+Output
+```
+jenkins.service - LSB: Start Jenkins at boot time
+  Loaded: loaded (/etc/init.d/jenkins; bad; vendor preset: enabled)
+  Active:active (exited) since Thu 2017-04-20 16:51:13 UTC; 2min 7s ago
+    Docs: man:systemd-sysv-generator(8)
+```
+
+Visit localhost:8080 to do some post-installation operation. Follow the instructions to get initial password.
+
+NB : Password may be found on your console or in the InitialPassword file check both locations.
+
+Please visit : https://jenkins.io/doc/book/installing (/#debian-ubuntu) for more information on setting up Jenkins, including how to setup on onther operating systems.
